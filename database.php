@@ -1,4 +1,5 @@
 <?php
+session_start();
 $con=mysqli_connect("localhost","root","","letsbook");
 if(isset($_POST['register']))
 {
@@ -46,16 +47,21 @@ if(isset($_POST['login']))
 	
 	$email=$_POST['lmail'];
 	$pass=$_POST['lpass'];
-	$query="SELECT password from user where email='$email'";
+	$query="SELECT * from user where email='$email'";
 	$red=mysqli_query($con,$query);
-	$rsa=mysqli_fetch_row($red);
-	if(password_verify($pass,$rsa[0]))
+	$rsa=mysqli_fetch_assoc($red);
+
+	if(password_verify($pass,$rsa['password']))
 	{
+		
+		$_SESSION['id']=$rsa['id'];
+		$_SESSION['name']=$rsa['name'];
+		$_SESSION['login']=true;
 		echo '<script language="javascript">';
         echo 'alert("Login Successful!!!!")';
         echo '</script>';
-        echo "<script> window.location.assign('homepage.html'); </script>";
-        
+        echo "<script> window.location.assign('homepage.php'); </script>";
+        // header('location:homepage.php');
 	}
 	else
 	{
