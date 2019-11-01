@@ -19,11 +19,11 @@ include ('database.php');
 <script src="js/jquery.js"></script>        
 <script src="js/bootstrap.js"></script>
 </head>
-<body>
+<body style="background-color: #575C5C">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="row">
 			<div class="col-lg-10">
-  <a class="navbar-brand" href="#">letsbook</a>
+  <a class="navbar-brand" href="index.html">letsbook</a>
 </div>
 <div class="col-lg-2">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,12 +31,12 @@ include ('database.php');
   </button></div>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item dropdown" >
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <?php echo $user_name;?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Add a book</a>
+          <a class="dropdown-item" href="database.php?book=1">Add a book</a>
           <a class="dropdown-item" href="#">leave a comment!</a>
           <a class="dropdown-item" href="#">Logout</a>
         </div>
@@ -44,28 +44,54 @@ include ('database.php');
     </ul>
   </div>
 </nav>
-<div class="row" style="background-color: #F2F2F2">
+<div class="row">
+
+
   <?php 
   $query="SELECT * from books where issuer_id=$user_id";
   $srt=mysqli_query($con,$query);
   while($rto=mysqli_fetch_row($srt))
   {
     ?>
-    <div class="col-lg-4" style="margin:20px;background-color: #FFFFFF;border-radius: 2%" align="middle">
-      <?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $rto[5] ).'" style="margin-top:20px"/>';?>
-      <p>Title: <?php echo $rto[1];?></p>
-      <p>Author: <?php echo $rto[2];?></p>
-      <p>Description: <?php echo $rto[4];?></p>
-      <p>YOP: <?php echo $rto[3];?></p>
+    <div class="container" style="border-radius: 2%;margin-bottom:20px">
+<div class="row" style="background-color: #F2F2F2">
+    <div class="col-lg-2" style="margin:20px;background-color: #FFFFFF;border-radius: 2%">
+      <?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $rto[5] ).'" style="margin:20px"/>';?>
     </div>
+    <div class="col-lg-8"  style="background-color: #F2F2F2 ">
+      <table class="table" style="margin-top: 40px;margin-left: 70px">
+     <tbody>
+            <tr>
+              <th class="thead-dark">Title</th>
+              <td><?php echo $rto[1];?></td>
+            </tr>
+            <tr>
+              <th class="thead-dark">Author</th>
+              <td><?php echo $rto[2];?></td>
+            </tr>
+            <tr>
+              <th class="thead-dark">Description</th>
+              <td><?php echo $rto[4];?></td>
+            </tr>
+            <tr>
+              <th class="thead-dark">YOP</th>
+              <td><?php echo $rto[3];?></td>
+            </tr>
+          </tbody>
+        </table>
+
+      <button type="submit" class="btn btn-dark btn-block" style="margin-left: 70px">Remove</button>
+    </div>
+  </div>
+</div>
       
 
  <?php } ?>
-</div>
+
 
 
 
 
 </body>
-<footer style="background-color: black;color:white"align="middle" ><br>copyright &copy letsbook.com 2019<br><br></footer>
+<footer style="background-color: black;color:white;width: 100%;position: fixed; left: 0;bottom: 0; width: 100%"align="middle"  ><br>copyright &copy letsbook.com 2019<br><br></footer>
 </html>
