@@ -72,7 +72,16 @@ if(isset($_POST['login']))
        
 	}
 }
+if(isset($_POST['share']))
+{
+	$title=$_POST['title'];
+	$author=$_POST['author'];
+	$yop=$_POST['yop'];
+	$desc=$_POST['desc'];
+	 $image = $_FILES['filer']['tmp_name'];
+        $image = addslashes(file_get_contents($image));     
+        echo '<img src="data:image/jpeg;base64,'.base64_encode( $image ).'" style="margin:20px"/>';
 
-
+}
 
 ?>

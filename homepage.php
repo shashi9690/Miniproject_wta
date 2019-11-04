@@ -11,7 +11,7 @@ include ('database.php');
 ?>
 <html>
 <head>
-<title>letsBook</title>
+<title>letsBook</title> 
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
@@ -24,27 +24,24 @@ include ('database.php');
 		<div class="row">
 			<div class="col-lg-10">
   <a class="navbar-brand" href="index.html">letsbook</a>
-</div>
-<div class="col-lg-2">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button></div>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+</div></nav>
+<div class="col-lg-12" style="background-color: #212529">
+       <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <?php echo $user_name;?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="database.php?book=1">Add a book</a>
+          <a class="dropdown-item" href="addbook.php?book=<?php echo $user_id?>">Add a book</a>
           <a class="dropdown-item" href="#">leave a comment!</a>
-          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
       </li>
     </ul>
   </div>
-</nav>
-<div class="row">
+
+<div class="col-lg-12" style="background-color: #e3e3e3;height: 100px;text-align: center;">
+        <h1 align="middle">Explore your Giveaways!!!!</h1>
+      </div>
+
 
 
   <?php 
@@ -54,7 +51,8 @@ include ('database.php');
   {
     ?>
     <div class="container" style="border-radius: 2%;margin-bottom:20px">
-<div class="row" style="background-color: #F2F2F2">
+      
+<div class="row" style="background-color: #F2F2F2;margin-top: 20px">
     <div class="col-lg-2" style="margin:20px;background-color: #FFFFFF;border-radius: 2%">
       <?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $rto[5] ).'" style="margin:20px"/>';?>
     </div>
@@ -87,6 +85,51 @@ include ('database.php');
       
 
  <?php } ?>
+ <div class="col-lg-12" style="background-color: #e3e3e3;height: 100px;text-align: center;">
+        <h1 align="middle">Search for a Book!!!!</h1>
+      </div>
+      <?php 
+  $query="SELECT * from books where issuer_id!=$user_id";
+  $srt=mysqli_query($con,$query);
+  while($rto=mysqli_fetch_row($srt))
+  {
+    ?>
+    <div class="container" style="border-radius: 2%;margin-bottom:20px">
+      
+<div class="row" style="background-color: #F2F2F2;margin-top: 20px">
+    <div class="col-lg-2" style="margin:20px;background-color: #FFFFFF;border-radius: 2%">
+      <?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $rto[5] ).'" style="margin:20px"/>';?>
+    </div>
+    <div class="col-lg-8"  style="background-color: #F2F2F2 ">
+      <table class="table" style="margin-top: 40px;margin-left: 70px">
+     <tbody>
+            <tr>
+              <th class="thead-dark">Title</th>
+              <td><?php echo $rto[1];?></td>
+            </tr>
+            <tr>
+              <th class="thead-dark">Author</th>
+              <td><?php echo $rto[2];?></td>
+            </tr>
+            <tr>
+              <th class="thead-dark">Description</th>
+              <td><?php echo $rto[4];?></td>
+            </tr>
+            <tr>
+              <th class="thead-dark">YOP</th>
+              <td><?php echo $rto[3];?></td>
+            </tr>
+          </tbody>
+        </table>
+
+      <button type="submit" class="btn btn-dark btn-block" style="margin-left: 70px">Request</button>
+    </div>
+  </div>
+</div>
+      
+
+ <?php } ?>
+
 
 
 
