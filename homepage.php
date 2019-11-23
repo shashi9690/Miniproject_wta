@@ -24,9 +24,16 @@ include ('database.php');
 		<div class="row">
 			<div class="col-lg-10">
   <a class="navbar-brand" href="index.html">letsbook</a>
-</div></nav>
-<div class="col-lg-12" style="background-color: #212529">
-       <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+</div>
+<div class="col-lg-2" >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></div>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        
+       <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
           <?php echo $user_name;?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -37,6 +44,8 @@ include ('database.php');
       </li>
     </ul>
   </div>
+</nav>
+
 
 <div class="col-lg-12" style="background-color: #e3e3e3;height: 100px;text-align: center;">
         <h1 align="middle">Explore your Giveaways!!!!</h1>
@@ -48,7 +57,8 @@ include ('database.php');
   $query="SELECT * from books where issuer_id=$user_id";
   $srt=mysqli_query($con,$query);
   while($rto=mysqli_fetch_row($srt))
-  {
+  { 
+
     ?>
     <div class="container" style="border-radius: 2%;margin-bottom:20px">
       
@@ -56,7 +66,7 @@ include ('database.php');
     <div class="col-lg-2" style="margin:20px;background-color: #FFFFFF;border-radius: 2%">
       <?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $rto[5] ).'" style="margin:20px"/>';?>
     </div>
-    <div class="col-lg-8"  style="background-color: #F2F2F2 ">
+    <div class="col-lg-6"  style="background-color: #F2F2F2 ">
       <table class="table" style="margin-top: 40px;margin-left: 70px">
      <tbody>
             <tr>
@@ -77,8 +87,9 @@ include ('database.php');
             </tr>
           </tbody>
         </table>
+  
 
-      <button type="submit" class="btn btn-dark btn-block" style="margin-left: 70px">Remove</button>
+      <button type="submit" name="rem" href='database.php?remo=<?php echo $rto[0]?>' class="btn btn-dark btn-block" style="margin-left: 70px">Remove</button>
     </div>
   </div>
 </div>
@@ -122,7 +133,7 @@ include ('database.php');
           </tbody>
         </table>
 
-      <button type="submit" class="btn btn-dark btn-block" style="margin-left: 70px">Request</button>
+      <button type="button"  class="btn btn-dark btn-block" onclick="location.href='ownerinfo.php?id=<?php echo $user_id?>'"  style="margin-left: 70px">request</button>
     </div>
   </div>
 </div>

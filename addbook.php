@@ -1,6 +1,7 @@
+
 <html>
 <head>
-<title>Lets Book</title>
+<title>Letsbook</title>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -8,31 +9,23 @@
 <link rel="shortcut icon" type="image/x-icon" href="img/imgo.jpg">
 </head>
 <body style="background-color: #4f3106">
-	<div>
+  <div>
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
   <ul class="navbar-nav" style="float: left" >
     <li class="nav-item active">
-      <a class="nav-link" href="index.html" style="font-size: 20">Letsbook</a>
+      <a class="nav-link" href="index.html" style="font-size: 20">letsbook</a>
     </li>
-    <li class="nav-item"style="float: left">
-      <a class="nav-link" href="index.html">About Us</a>
-    </li>
-    <li class="nav-item"style="float: left">
-      <a class="nav-link" href="#">Blog</a>
-    </li>
-    <li class="nav-item"style="float: left">
-      <a class="nav-link" href="login.html">Login</a>
-    </li>
+    
   </ul>
 </nav>
 <div class="row"  style="margin-top:20px;margin-left: 20px">
 <div class="col-lg-4" style="background-color: #bcc0c4;float: center;border-radius: 2%" >
- <form style="text-align: left" align="middle" method="post" type="multipart/formdata" action="database.php">
+ <form style="text-align: left" align="middle" method="post" enctype="multipart/form-data" action="database.php?id=<?php echo $_GET['book']?>">
   <h4 align="middle">Add Book!!!</h4>
   <div class="form-group">
     <label for="exampleInputEmail1">Title</label>
     <input type="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Title" name="title">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    
   </div>
   <div class="form-group">
     <label for="exampleInputname1">Author</label>
@@ -45,7 +38,7 @@
   <div class="form-group">
     <label for="exampleInputname1">Description</label>
     <input type="name" class="form-control" id="exampleInputName1" placeholder="Description" name="desc">
-  </div>
+ 
 
   <div class="form-group" style="margin-bottom: 20px">
     <label for="exampleFormControlFile1">Add Cover</label>
