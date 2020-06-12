@@ -51,6 +51,7 @@ include ('database.php');
 	<tr>
 <th>Book name</th>
 <th>Borrower</th>
+<th>Borrower Mail</th>
 <th>view books</th>
 <th>approve</th>
 </tr>
@@ -69,7 +70,7 @@ $rts=mysqli_query($con,$querys);
 $drt=mysqli_fetch_assoc($rts);
 
 $id=$srt['request_id'];
-$set="SELECT name from user where id=$id";
+$set="SELECT name,email from user where id=$id";
 $str=mysqli_query($con,$set);
 $ets=mysqli_fetch_assoc($str);
 ?>
@@ -78,10 +79,22 @@ $ets=mysqli_fetch_assoc($str);
 <tr>
 <td><?php echo $drt['b_name'];?></td>
 <td><?php echo $ets['name'] ;?></td>
+<td><?php echo $ets['email'] ;?></td>
+
 <td><a href="bookinfo.php?id=<?php echo $srt['request_id']?>">View books</a></td>
-<td><a href='database.php?b=<?php echo $b_id?>'><button type="submit" name="rem"  class="btn btn-dark">Approve</button><a></td>
+<td><a href='database.php?b=<?php echo $b_id?>'><button type="submit" name="rem"  class="btn btn-dark">Approve</button></a></td>
 </tr>
 
 <?php }?>
 </table>
+
+  <div class="col-lg-2" align="left">
+<button class="btn-danger"><a href="trial.php">Back</a></button>
+</div>
+</div>
+
+</body>
+</html>
+
+
 

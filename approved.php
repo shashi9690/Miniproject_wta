@@ -35,9 +35,11 @@ include ('database.php');
                 <tr><td><a href="request.php">Pending Requests</a></td></tr>
                 <tr><td><a href="approved.php">Approved Books</a></td></tr>
                 <tr><td><a href="logout.php">Logout</a></td></tr>
+                <tr><td><a href="trial.php">Back</a></td></tr>
 </table>
         </div>
          <main class="col-lg offset-md-2">
+          <div class="row">
             <?php
       $query="SELECT b_id from request where request_id=$user_id and approval_status=1";
       $row=mysqli_query($con,$query);
@@ -60,16 +62,28 @@ include ('database.php');
     <li class="list-group-item">Author :<?php echo $rto[2];?></li>
     <li class="list-group-item">YOP  :<?php echo $rto[3];?></li>
     <?php 
-    $rq="SELECT address from user where id=$rto[6]";
+    $rq="SELECT * from user where id=$rto[6]";
     $rty=mysqli_query($con,$rq);
     $ytr=mysqli_fetch_assoc($rty);
     ?>
     <li class="list-group-item">Owner Address  :<?php echo $ytr['address'];?></li>
+    <li class="list-group-item">Contact  :<?php echo $ytr['phone'];?></li>
+    <li class="list-group-item">Email  :<?php echo $ytr['email'];?></li>
   </ul>
 
   <div class="card-body">
     <a href='database.php?remo=<?php echo $rto[0]?>'><button type="submit" name="rem" onclick="return confirm('are you sure you have borrowed the book');"   class="btn btn-dark btn-block">Borrowed</button></a>
   </div>
 </div>
+
 <?php } }?>
+</div>
+</main>
+</div>
+</div>
+
+</body>
+
+</html>
+
       

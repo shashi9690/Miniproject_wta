@@ -1,3 +1,15 @@
+<?php
+include ('database.php');
+// print_r($_SESSION['name']);
+        if(!isset($_SESSION['login']))
+    {
+        header('location:login.html');
+        // echo "wat the hell";
+    }
+        $user_id=$_SESSION['id'];
+    $user_name=$_SESSION['name'];
+    $user_mail=$_SESSION['email'];
+?>
 <html>
 <head>
 <title>letsBook</title>
@@ -16,9 +28,7 @@
     <li class="nav-item"style="float: right">
       <a class="nav-link" href="index.html">About Us</a>
     </li>
-    <li class="nav-item"style="float: right">
-      <a class="nav-link" href="#">Blog</a>
-    </li>
+   
   </ul>
 </nav>
 <div class="well" align="middle" style="background-color: #e3e3e3;height: 20%;width: 100%;padding-top: 20px">
@@ -31,38 +41,22 @@
         <div class="col-md-4 col-md-offset-4" style="margin-top: 40px">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <strong>Login</strong>
+                  <strong>Change password</strong>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="post" action="database.php">
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">
-                            Email</label>
+                            Enter new password</label>
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="inputEmail3" name='lmail' placeholder="Email" required="">
+                            <input type="text" class="form-control" id="inputEmail3" name='lmail' placeholder="password" required="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">
-                            Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPassword3" name='lpass' placeholder="Password" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <div class="checkbox">
-                                <label>
-                                    
-                                    <a href="changepassword.php">Forgot password</a>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" name='login' class="btn btn-success btn-sm">
-                                Sign in</button>
+                            <button type="submit" name='cp' class="btn btn-success btn-sm">
+                                Change Password</button>
                         </div>
                     </div>
                     </form>

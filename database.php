@@ -21,9 +21,9 @@ if(isset($_POST['register']))
         echo "<script> window.location.assign('login.html'); </script>";
     }
     else{
-    	$password_hash=password_hash($pass, PASSWORD_DEFAULT);
+    	
 
-	$squery="INSERT INTO user(id,name,email,password,location,address,phone) VALUES (NULL,'$name','$email','$password_hash','$loc','$add',$ph)";
+	$squery="INSERT INTO user(id,name,email,password,location,address,phone) VALUES (NULL,'$name','$email','$pass','$loc','$add','$ph')";
 	$sql=mysqli_query($con,$squery);
 	if($sql==TRUE)
 	{
@@ -43,7 +43,8 @@ if(isset($_POST['register']))
        
     }
 }
-}
+ }
+
 if(isset($_POST['login']))
 {
 
@@ -54,11 +55,12 @@ if(isset($_POST['login']))
 	$red=mysqli_query($con,$query);
 	$rsa=mysqli_fetch_assoc($red);
 
-	if(password_verify($pass,$rsa['password']))
+	if($pass==$rsa['password'])
 	{
 		
 		$_SESSION['id']=$rsa['id'];
 		$_SESSION['name']=$rsa['name'];
+    $_SESSION['email']=$rsa['email'];
 		$_SESSION['login']=true;
 		echo '<script language="javascript">';
         echo 'alert("Login Successful!!!!")';
@@ -74,6 +76,38 @@ if(isset($_POST['login']))
         echo "<script> window.location.assign('login.html'); </script>";
        
 	}
+}
+if(isset($_POST['alogin']))
+{
+
+  
+  $email=$_POST['lmail'];
+  $pass=$_POST['lpass'];
+  $query="SELECT * from admin where email='$email'";
+  $red=mysqli_query($con,$query);
+  $rsa=mysqli_fetch_assoc($red);
+
+  if($pass==$rsa['password'])
+  {
+    
+    $_SESSION['id']=$rsa['id'];
+    $_SESSION['name']=$rsa['name'];
+    $_SESSION['email']=$rsa['email'];
+    $_SESSION['login']=true;
+    echo '<script language="javascript">';
+        echo 'alert("Login Successful!!!!")';
+        echo '</script>';
+       echo "<script> window.location.assign('admin/trial.php'); </script>";
+        // header('location:trial.php');
+  }
+  else
+  {
+    echo '<script language="javascript">';
+        echo 'alert("Incorrect Password")';
+        echo '</script>';
+       // echo "<script> window.location.assign('admin/login.html'); </script>";
+       
+  }
 }
 if(isset($_POST['share']))
 {
@@ -156,7 +190,7 @@ echo '<script language="javascript">';
   }
   else{
     echo '<script language="javascript">';
-        echo 'alert("Failed to submit")';
+        echo 'alert("Request already exists")';
 
         echo '</script>';
        echo "<script> window.location.assign('trial.php'); </script>";
@@ -171,6 +205,7 @@ if(isset($_GET['b']))
   $mys=mysqli_query($con,$qwery);
   if($mys==TRUE)
   {
+    
 echo '<script language="javascript">';
         echo 'alert("approved")';
 
@@ -187,6 +222,99 @@ echo '<script language="javascript">';
 
 
   }
+}
+if(isset($_POST['pchange']))
+{
+
+  $email=$_POST['lmail'];
+  echo $email;
+  $otp=rand(100000,999999);
+
+  $rop='SELECT * FROM user where email="$email"';
+  $dot=mysqli_query($con,$rop);
+  if($dot)
+  {
+    echo "user exists";
+    $rst=strval($otp);
+    
+    $rot="UPDATE user set password='$rst' where email='$email'";
+    $pot=mysqli_query($con,$rot);
+    if($rot==true)
+    {
+require 'phpmailer\PHPMailerAutoload.php';
+
+$mail = new PHPMailer;
+
+//$mail->SMTPDebug = 4;                               // Enable verbose debug output
+
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = '';                 // SMTP username
+$mail->Password = '';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                    // TCP port to connect to
+
+$mail->setFrom('');
+$mail->addAddress($email); 
+$mail->addReplyTo('');
+
+
+//$mail->addAttachment('/var/tmp/file.tar.gz');          Add attachments
+//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+$mail->isHTML(true);                                  // Set email format to HTML
+
+$mail->Subject = 'New password ';
+$mail->Body    = 'Here is your new password<h1>'.$otp."</h1></br> dont share it with anybody";
+
+
+if(!$mail->send()) {
+    echo '<script language="javascript">';
+    echo 'alert("failed to send mail, check your internet connecton!!")';
+    
+    echo '</script>';
+    echo "<script> window.location.assign('changepassword.php');</script>";
+} else {
+    
+        echo '<script language="javascript">';
+            echo 'alert("mail sent")';
+            echo '</script>';
+            echo "<script> window.location.assign('login.html'); </script>";
+}
+}
+}
+else
+{
+  echo '<script language="javascript">';
+            echo 'alert("email does not exist please register")';
+            echo '</script>';
+           echo "<script> window.location.assign('reg.html'); </script>";
+
+}
+
+}
+if(isset($_POST['cp']))
+{
+  $email=$_SESSION['email'];
+  $rst=$_POST['lmail'];
+  $rot="UPDATE user set password='$rst' where email='$email'";
+    $pot=mysqli_query($con,$rot);
+if($pot==true)
+    {
+      echo '<script language="javascript">';
+            echo 'alert("Changed Password")';
+            echo '</script>';
+            echo "<script> window.location.assign('login.html'); </script>";
+
+}
+else
+{
+  echo '<script language="javascript">';
+            echo 'alert("failed to change password ")';
+            echo '</script>';
+            echo "<script> window.location.assign('cp.php'); </script>";
+
+}
 }
     
 

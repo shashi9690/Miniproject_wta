@@ -15,8 +15,7 @@
     <li class="nav-item active">
       <a class="nav-link" href="index.html" style="font-size: 20">letsbook</a>
     </li>
-    
-  </ul>
+  </ul> 
 </nav>
 <div class="row"  style="margin-top:20px;margin-left: 20px">
 <div class="col-lg-4" style="background-color: #bcc0c4;float: center;border-radius: 2%" >
@@ -46,6 +45,12 @@
   </div>
   <button type="submit"  name="share" class="btn btn-block btn-success">Share!!!!!!</button>
 </form>
+</div>
+</form>
+</div>
+</div>
+<div class="col-lg-2" align="left">
+<button class="btn-danger"><a href="trial.php">Back</a></button>
 </div>
 <footer style="background-color: black;color:white;position: fixed; left: 0;bottom: 0; width: 100%" align="middle" ><br>copyright&copyletsbook.com 2019<br><br></footer>
 </div>
